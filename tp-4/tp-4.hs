@@ -18,36 +18,58 @@ data Ingrediente = Salsa
 -- 1.1
 cantidadDeCapas :: Pizza -> Int
 -- Dada una pizza devuelve la cantidad de ingredientes
-
+cantidadDeCapas Prepizza   = 0
+cantidadDeCapas (Capa _ p) = 1 + cantidadDeCapas p
 
 
 -- 1.2
 armarPizza :: [Ingrediente] -> Pizza
 -- Dada una lista de ingredientes construye una pizza
-
+armarPizza []     = Prepizza
+armarPizza (i:is) = Capa i (armarPizza is)
 
 
 -- 1.3
 sacarJamon :: Pizza -> Pizza
 -- Le saca los ingredientes que sean jamón a la pizza
+sacarJamon Prepizza   = Prepizza
+sacarJamon (Capa i p) = if esIngrediente i Jamon
+                        then sacarJamon p
+                        else Capa i (sacarJamon p)
 
+esIngrediente :: Ingrediente -> Ingrediente -> Bool
+esIngrediente Salsa         Salsa         = True
+esIngrediente Queso         Queso         = True
+esIngrediente Jamon         Jamon         = True
+esIngrediente (Aceitunas n) (Aceitunas m) = True
+esIngrediente _             _             = False
 
 
 -- 1.4
 tieneSoloSalsaYQueso :: Pizza -> Bool
 -- Dice si una pizza tiene solamente salsa y queso (o sea, no tiene de otros ingredientes. En particular, la prepizza, al no tener ningún ingrediente, debería dar verdadero.)
-
+tieneSoloSalsaYQueso Prepizza   = True
+tieneSoloSalsaYQueso (Capa i p) = (esIngrediente i Salsa || esIngrediente i Queso) && tieneSoloSalsaYQueso p
 
 
 -- 1.5
 duplicarAceitunas :: Pizza -> Pizza
 -- Recorre cada ingrediente y si es aceitunas duplica su cantidad
+duplicarAceitunas Prepizza   = Prepizza
+duplicarAceitunas (Capa i p) = if esIngrediente i (Aceitunas 0)
+                               then Capa (aceitunasDuplicadas i) (duplicarAceitunas p)
+                               else Capa i (duplicarAceitunas p)
 
+aceitunasDuplicadas :: Ingrediente -> Ingrediente
+aceitunasDuplicadas (Aceitunas n) = Aceitunas (n * 2)
+aceitunasDuplicadas _             = error "Solo se pueden duplicar aceitunas"
 
 
 -- 1.6
 cantCapasPorPizza :: [Pizza] -> [(Int, Pizza)]
 -- Dada una lista de pizzas devuelve un par donde la primera componente es la cantidad de ingredientes de la pizza, y la respectiva pizza como segunda componente.
+cantCapasPorPizza []     = []
+cantCapasPorPizza (p:ps) = (cantidadDeCapas p, p) : cantCapasPorPizza ps
 
 
 
