@@ -303,13 +303,10 @@ tripulantesDeSector (S _ _ ts) = ts
 -- La estructura es la siguiente:
 
 type Presa = String -- nombre de presa
-    deriving Show
 
 type Territorio = String -- nombre de territorio
-    deriving Show
 
 type Nombre = String -- nombre de lobo
-    deriving Show
 
 data Lobo = Cazador Nombre [Presa] Lobo Lobo Lobo
 | Explorador Nombre [Territorio] Lobo Lobo
@@ -321,13 +318,16 @@ data Manada = M Lobo
 
     -- 4.1. Construir un valor de tipo Manada que posea 1 cazador, 2 exploradores y que el resto sean crías.
 
+manadaDelOrto :: Manada
+manadaDelOrto = M (Cazador "Juan Cazador" [presa1, presalol, presa3] (Explorador "Juan Explorador I" ["Monte Chingolo", "Salta", "Israel"] (Cría "Juan Cria I") (Cría "Juan Cria I")) (Explorador "Juan Explorador II" ["Super Monte Chingolo", "Micuman", "Andorra"] (Cría "Juan Cria III") (Cría "Juan Cria IV")) (Cría "Juan Cria V"))
+
     -- Resolver las siguientes funciones utilizando recursión estructural sobre la estructura que corresponda en cada caso:
 
 
 -- 4.1.2
--- buenaCaza :: Manada -> Bool
+buenaCaza :: Manada -> Bool
 -- Propósito: dada una manada, indica si la cantidad de alimento cazado es mayor a la cantidad de crías.
-
+buenaCaza
 
 
 -- 4.1.3
