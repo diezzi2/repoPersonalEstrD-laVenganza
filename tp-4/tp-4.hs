@@ -349,14 +349,37 @@ manadaDelOrto = M (Cazador "Juan Cazador" [presa1, presalol, presa3] (Explorador
 -- 4.1.2
 buenaCaza :: Manada -> Bool
 -- Propósito: dada una manada, indica si la cantidad de alimento cazado es mayor a la cantidad de crías.
-buenaCaza
+buenaCaza m = alimentoCazado m > cantidadDeCrias m
+
+alimentoCazado :: Manada -> Int
+alimentoCazado (M l) = alimentoCazadoLobo l
+
+alimentoCazadoLobo :: Lobo -> Int
+alimentoCazadoLobo _                       = 0
+alimentoCazadoLobo (Explorador _ _ l1 l2)  = alimentoCazadoLobo l1 + alimentoCazadoLobo l2
+alimentoCazadoLobo (Cazador _ ps l1 l2 l3) = length ps + alimentoCazadoLobo l1 + alimentoCazadoLobo l2 + alimentoCazadoLobo l3
+
+cantidadDeCrias :: Manada -> Int
+cantidadDeCrias (M l) = cantidadDeCriasLobo l
+
+cantidadDeCriasLobo :: Lobo -> Int
+cantidadDeCriasLobo _                      = 1
+cantidadDeCriasLobo (Explorador _ _ l1 l2) = cantidadDeCriasLobo l1 + cantidadDeCriasLobo l2
+cantidadDeCriasLobo (Cazador _ _ l1 l2 l3) = cantidadDeCriasLobo l1 + cantidadDeCriasLobo l2 + cantidadDeCriasLobo l3
 
 
 -- 4.1.3
--- elAlfa :: Manada -> (Nombre, Int)
+elAlfa :: Manada -> (Nombre, Int)
 -- Propósito: dada una manada, devuelve el nombre del lobo con más presas cazadas, junto con su cantidad de presas.
 -- Nota: se considera que los exploradores y crías tienen cero presas cazadas, y que podrían formar parte del resultado si es que no existen cazadores con más de cero presas.
+elAlfa m = let lx = loboConMasPresasCazadasEnManada m in
+           (nombreDeLobo lx, presasDeLobo lx)
 
+loboConMasPresasCazadasEnManada :: Manada -> Lobo
+loboConMasPresasCazadasEnManada (M l) = loboConMasPresasCazadasEntreLobos l
+
+loboConMasPresasCazadasEntreLobos :: Lobo -> Lobo
+loboConMasPresasCazadasEntreLobos (Cazador _ ps l1 l2 l3) =
 
 
 -- 4.1.4
