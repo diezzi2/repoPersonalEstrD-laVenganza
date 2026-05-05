@@ -378,8 +378,10 @@ elAlfa m = let lx = loboConMasPresasCazadasEnManada m in
 loboConMasPresasCazadasEnManada :: Manada -> Lobo
 loboConMasPresasCazadasEnManada (M l) = loboConMasPresasCazadasEntreLobos l
 
-loboConMasPresasCazadasEntreLobos :: Lobo -> Lobo
+loboConMasPresasCazadasEntreLobos :: Lobo -> (Maybe Lobo)
 loboConMasPresasCazadasEntreLobos (Cazador _ ps l1 l2 l3) =
+loboConMasPresasCazadasEntreLobos (Explorador _ _ l1 l2)  = 
+loboConMasPresasCazadasEntreLobos _                       = Nothing
 
 
 -- 4.1.4
