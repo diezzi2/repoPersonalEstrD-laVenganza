@@ -1,4 +1,4 @@
--- 1. Cálculo de costos
+pṕpalabras-- 1. Cálculo de costos
 
 -- Especificar el costo operacional de las siguientes funciones:
 
@@ -120,13 +120,16 @@ orderar xs = let m = minimo xs in
 -- 2.2.1.
 losQuePertenecen :: Eq a => [a] -> Set a -> [a]
 -- Dados una lista y un conjunto, describe una lista con todos los elementos que pertenecen al conjunto.
-
+losQuePertenecen []     set = []
+losQuePertenecen (x:xs) set = if belongs x set
+                              then x : losQuePertenecen xs set
+                              else losQuePertenecen xs set
 
 
 -- 2.2.3.
 sinRepetidos :: Eq a => [a] -> [a]
 -- Quita todos los elementos repetidos de la lista dada utilizando un conjunto como estructura auxiliar.
-
+sinRepetidos
 
 
 -- 2.2.4.

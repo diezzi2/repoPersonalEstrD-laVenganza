@@ -63,6 +63,7 @@ remove x []     = []
 remove x (y:ys) = if x == y
                   then ys
                   else x : remove x ys
+-- O(n)
 
 unoSiCeroSiNo :: Bool -> Int
 unoSiCeroSiNo True  = 1
