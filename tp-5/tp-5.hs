@@ -1,6 +1,4 @@
-pṕpalabras-- 1. Cálculo de costos
-
--- Especificar el costo operacional de las siguientes funciones:
+ sto operacional de las siguientes funciones:
 
 
 -- 1.1
@@ -129,86 +127,68 @@ losQuePertenecen (x:xs) set = if belongs x set
 -- 2.2.3.
 sinRepetidos :: Eq a => [a] -> [a]
 -- Quita todos los elementos repetidos de la lista dada utilizando un conjunto como estructura auxiliar.
-sinRepetidos
+sinRepetidos xs = setToList (listToSet xs)
+
+listToSet :: [a] -> Set a
+listToSet []     = emptyS
+listToSet (x:xs) = addS x (listToSet xs)
 
 
 -- 2.2.4.
 unirTodos :: Eq a => Tree (Set a) -> Set a
 -- Dado un arbol de conjuntos describe un conjunto con la union de todos los conjuntos del arbol.
-
-
-
-    -- 2.3. Implementar la variante del tipo abstracto Set que posee una lista y admite repetidos. En otras palabras, al agregar no va a chequear que si el elemento ya se encuentra en la lista, pero
-    -- sí debe comportarse como Set ante el usuario (quitando los elementos repetidos al pedirlos, por ejemplo). Contrastar la eficiencia obtenida en esta implementación con la anterior.
+unirTodos EmptyT          = emptyS
+unirTodos (NodeT s tl tr) = unionS s (unionS (unirTodos tl) (unirTodos tr))
 
 
 -- 3. Queue (cola)
 
--- Una Queue es un tipo abstracto de datos de naturaleza FIFO (first in, first out). Esto significa que los elementos salen en el orden con el que entraron, es decir, el que se agrega primero es el
--- primero en salir (como la cola de un banco). 
-
--- Su interfaz es la siguiente:
-
-emptyQ :: Queue a
-Crea una cola vacía.
-isEmptyQ :: Queue a -> Bool
-Dada una cola indica si la cola está vacía.
-enqueue :: a -> Queue a -> Queue a
-Dados un elemento y una cola, agrega ese elemento a la cola.
-firstQ :: Queue a -> a
-Dada una cola describe el primer elemento de la cola.
-dequeue :: Queue a -> Queue a
-Dada una cola la describe sin su primer elemento.
-
-    -- 3.1. Implemente el tipo abstracto Queue utilizando listas. Los elementos deben encolarse por el final de la lista y desencolarse por delante.
-
-
-    -- 3.2. Implemente ahora la versión que agrega por delante y quita por el final de la lista. Compare la eficiencia entre ambas implementaciones.
-
-
     -- 3.3. Como usuario del tipo abstracto Queue implementar las siguientes funciones:
 
+
 lengthQ :: Queue a -> Int
-Cuenta la cantidad de elementos de la cola.
+-- Cuenta la cantidad de elementos de la cola.
+lengthQ q = if isEmptyQ q
+            then 0
+            else 1 + lengthQ (dequeue q)
+
+
 queueToList :: Queue a -> [a]
-Dada una cola describe la lista con los mismos elementos, donde el orden de la lista es el de la cola.
-Nota: chequear que los elementos queden en el orden correcto.
+-- Dada una cola describe la lista con los mismos elementos, donde el orden de la lista es el de la cola.
+-- Nota: chequear que los elementos queden en el orden correcto.
+queueToList q = if isEmptyQ q
+                then []
+                else firstQ : queueToList (dequeue q)
+
 unionQ :: Queue a -> Queue a -> Queue a
-Inserta todos los elementos de la segunda cola en la primera.
+-- Inserta todos los elementos de la segunda cola en la primera.
+unionQ q1 q2 = if isEmptyQ q2
+               then q1
+               else unionQ (enqueue (firstQ q2) q1) (dequeue q2)
 
 
 -- 4. Stack (pila)
 
--- Una Stack es un tipo abstracto de datos de naturaleza LIFO (last in, first out). Esto significa que los últimos elementos agregados a la estructura son los primeros en salir (como en una pila deplatos).
-
--- Su interfaz es la siguiente:
-
-emptyS :: Stack a
-Describe una pila vacía.
-isEmptyS :: Stack a -> Bool
-Dada una pila indica si está vacía.
-push :: a -> Stack a -> Stack a
-Dados un elemento y una pila, describe el resultado de agregar el elemento a la pila.
-top :: Stack a -> a
-Dada un pila describe el elemento del tope de la pila.
-pop :: Stack a -> Stack a
-Dada una pila describe la pila sin el primer elemento.
-lenS :: Stack a -> Int
-Dada una pila describe la cantidad de elementos de la misma.
-Costo: constante.
-
-
     -- 4.1. Como usuario del tipo abstracto Stack implementar las siguientes funciones:
 
+
 apilar :: [a] -> Stack a
-Dada una lista describe una pila sin alterar el orden de los elementos.
+-- Dada una lista describe una pila sin alterar el orden de los elementos.
+apilar []     = emptyS
+apilar (x:xs) = push x (apilar xs)
+
+
 desapilar :: Stack a -> [a]
-Dada una pila describe una lista sin alterar el orden de los elementos.
+-- Dada una pila describe una lista sin alterar el orden de los elementos.
+desapilar sk = if isEmptyS sk
+               then []
+               else top sk : (desapilar (pop sk))
+
+
 insertarEnPos :: Int -> a -> Stack a -> Stack a
-Dada una posicion válida en la stack y un elemento, ubica dicho elemento en dicha posición (se desapilan elementos hasta dicha posición y se inserta en ese lugar).
+-- Dada una posicion válida en la stack y un elemento, ubica dicho elemento en dicha posición (se desapilan elementos hasta dicha posición y se inserta en ese lugar).
+insertarEnPos n x sk = 
 
-
-    -- 4.2. Implementar el tipo abstracto Stack utilizando una lista.
 
 -- 5. Queue con dos listas
 
