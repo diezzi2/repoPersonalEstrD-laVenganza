@@ -1,5 +1,3 @@
--- en pc de casa: puntos 1.1; 1.2; 2.2(valuesM, todasAsociadas) + organización de documentos de maps
-
 -- 1. Priority Queue (cola de prioridad)
 
     -- Ejercicio 1.2
@@ -8,27 +6,42 @@
 heapSort :: Ord a => [a] -> [a]
 -- Dada una lista la ordena de menor a mayor utilizando una Priority Queue como estructura auxiliar. ¿Cuál es su costo?
 -- OBSERVACIÓN: el nombre heapSort se debe a una implementación particular de las Priority Queues basada en una estructura concreta llamada Heap, que será trabajada en la siguiente práctica.
+heapSort xs = pqToList (listToPQ xs)
+
+pqToList :: Ord a  => PriorityQueue a -> [a]
+pqToList pq = if isEmptyPQ pq
+              then []
+              else findMinPQ pq : pqToList (deleteMinPQ pq)
 
 
+listToPQ :: Ord a  => [a] -> PriorityQueue a
+listToPQ []     = emptyPQ
+listToPQ (x:xs) = insertPQ x (listToPQ xs)
 
 -- 2. Map (diccionario)
 
-    -- Ejercicio 2.2
+    -- Ejercicio 2.1
 
 -- Implementar como usuario del tipo abstracto Map las siguientes funciones:
--- Indicar los ordenes de complejidad en peor caso de cada función implementada, justificandolas respuestas.
 
 
--- 2.2.1
+-- 2.1.1
 valuesM :: Eq k => Map k v -> [Maybe v]
 -- Propósito: obtiene los valores asociados a cada clave del map.
+valuesM map = valoresDeKeysEnMap (keys map) map
+
+valoresDeKeysEnMap :: Eq k => [k] -> Map k v -> [Maybe v]
+valoresDeKeysEnMap []     map = []
+valoresDeKeysEnMap (k:ks) map = lookupM k : valoresDeKeysEnMap ks map
 
 
-
--- 2.2.2
+-- 2.1.2
 todasAsociadas :: Eq k => [k] -> Map k v -> Bool
 -- Propósito: indica si en el map se encuentran todas las claves dadas.
-
+todasAsociadas []     map = True
+todasAsociadas (k:ks) map = case lookupM k map of
+                            Nothing -> False
+                            Just v  -> todasAsociadas ks map
 
 
 -- 2.2.3
