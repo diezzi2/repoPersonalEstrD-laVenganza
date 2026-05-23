@@ -1,9 +1,18 @@
+module MapV0
+    (Map, emptyM, assocM, lookupM, deleteM, keys)
+    where
+data Map k v = M
+    {-
+    INV. REP.: 
+        En (M):
+        * 
+    -}
+
 -- 2. Map (diccionario)
 
     -- Ejercicio 2.3
 
 -- Implemente las siguientes variantes del tipo Map, indicando los costos obtenidos para cada operación, justificando las respuestas:
-
 -- 3. Como dos listas, una de claves y otra de valores, donde la clave ubicada en la posición i está asociada al valor en la misma posición, pero de la otra lista.
 
 -- La interfaz del tipo abstracto Map es la siguiente:

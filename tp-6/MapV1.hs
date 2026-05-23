@@ -1,9 +1,18 @@
+module MapV0
+    (Map, emptyM, assocM, lookupM, deleteM, keys)
+    where
+data Map k v = M [(k, v)]
+    {-
+    INV. REP.: 
+        En (M kvs):
+        * No se repite ninguna k en kvs
+    -}
+
 -- 2. Map (diccionario)
 
     -- Ejercicio 2.3
 
 -- Implemente las siguientes variantes del tipo Map, indicando los costos obtenidos para cada operación, justificando las respuestas:
-
 -- 1. Como una lista de pares-clave valor sin claves repetidas
 
 -- La interfaz del tipo abstracto Map es la siguiente:

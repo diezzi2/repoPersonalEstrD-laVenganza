@@ -31,3 +31,21 @@ lenS :: Stack a -> Int
     -- 4.2. Implementar el tipo abstracto Stack utilizando una lista.
 
 
+emptyS = Sk []
+-- O(1)
+
+isEmptyS (Sk []) = True
+isEmptyS (Sk xs) = False
+-- O(1)
+
+push x (Sk xs) = Sk (x:xs)
+-- O(1)
+
+top (Sk (x:xs)) = x
+-- O(1)
+
+pop (Sk (x:xs)) = Sk xs
+-- O(1)
+
+lenS (Sk xs) = length xs
+-- O(n)
