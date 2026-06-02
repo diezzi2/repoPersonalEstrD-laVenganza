@@ -1,3 +1,8 @@
+import PriorityQueue
+import MapV1
+-- import MapV2
+-- import MapV3
+
 -- 1. Priority Queue (cola de prioridad)
 
     -- Ejercicio 1.2
@@ -75,10 +80,8 @@ mapToListWithKeys map (k:ks) = case lookupM k map of
 
 
 -- 2.2.5
-agruparEq :: Eq k => [(k, v)] -> Map k [v]
+-- agruparEq :: Eq k => [(k, v)] -> Map k [v]
 -- Propósito: dada una lista de pares clave valor, agrupa los valores de los pares que compartan la misma clave.
-agruparEq []       =
-agruparEq (kv:kvs) = 
 -- O()
 
 
@@ -93,9 +96,8 @@ incrementar (k:ks) map = case lookupM k map of
 
 
 -- 2.2.7
-mergeMaps:: Eq k => Map k v -> Map k v -> Map k v
+-- mergeMaps:: Eq k => Map k v -> Map k v -> Map k v
 -- Propósito: dado dos maps se agregan las claves y valores del primer map en el segundo. Si una clave del primero existe en el segundo, es reemplazada por la del primero.
-mergeMaps mp1 mp2 = 
 -- O()
 
 
@@ -118,5 +120,6 @@ indexarAPartirDe n (x:xs) = assocM n x (indexarAPartirDe (n + 1) xs)
 
 
 -- 2.4.2
-ocurrencias :: String -> Map Char Int
+-- ocurrencias :: String -> Map Char Int
 -- Propósito: dado un string, devuelve un map donde las claves son los caracteres que aparecen en el string, y los valores la cantidad de veces que aparecen en el mismo.
+-- O()

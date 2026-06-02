@@ -172,12 +172,14 @@ unionQ q1 q2 = if isEmptyQ q2
     -- 4.1. Como usuario del tipo abstracto Stack implementar las siguientes funciones:
 
 
+-- 4.1.1
 apilar :: [a] -> Stack a
 -- Dada una lista describe una pila sin alterar el orden de los elementos.
 apilar []     = emptyS
 apilar (x:xs) = push x (apilar xs)
 
 
+-- 4.1.2
 desapilar :: Stack a -> [a]
 -- Dada una pila describe una lista sin alterar el orden de los elementos.
 desapilar sk = if isEmptyS sk
@@ -185,6 +187,7 @@ desapilar sk = if isEmptyS sk
                else top sk : (desapilar (pop sk))
 
 
+-- 4.1.3
 insertarEnPos :: Int -> a -> Stack a -> Stack a
 -- Dada una posicion válida en la stack y un elemento, ubica dicho elemento en dicha posición (se desapilan elementos hasta dicha posición y se inserta en ese lugar).
 insertarEnPos n x sk = 
