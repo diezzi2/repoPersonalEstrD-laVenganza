@@ -25,6 +25,8 @@ Puntos sin hacer:
         - TODO
     TP9:
         - 1
-        - 2
-        - Testear 3
+        - 2 hecho con una re paja
+        - 4 pero solo algunas recursiones que creo q son imposibles
+    TP10:
+
 -}

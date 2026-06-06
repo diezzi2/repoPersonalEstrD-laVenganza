@@ -233,25 +233,41 @@ void primerosN(int n, string s) {
 
 void primerosNRecursive(int n, string s) {
     int m = n - 1;
-    if (n >= 0) {
+    if (m >= 0) {
         primerosNRecursive(m, s);
-        cout << s[n] << endl;
+        cout << s[m] << endl;
     }
-}
-
-int main() {
-    primerosNRecursive(4, "zarita");
 }
 
 
 // 4.6.
 // Propósito: indica si un char c aparece en el string s.
-// bool pertenece(char c, string s)
+bool pertenece(char c, string s) {
+    bool b = false;
+    for (int i = 0; c != s[i] || i <= s.length(); i++) {
+        b = b || c == s[i];
+    }
+    // cout << b;
+    return b;
+}
+
+// bool perteneceRecursive(char c, string s) creo que no se puede hacer sin sumar un tercer parametro que haga de indice
 
 
 // 4.7.
 // Propósito: devuelve la cantidad de apariciones de un char c en el string s.
-// int apariciones(char c, string s)
+int apariciones(char c, string s) {
+    int resultado = 0;
+    for (int i = 0; i <= s.length(); i++) {
+        if (c == s[i]) {
+            resultado++;
+        }
+    }
+    cout << resultado;
+    return resultado;
+}
+
+// int aparicionesRecursive(char c, string s) creo que no se puede hacer sin sumar un tercer parametro que haga de indice
 
 
 // Ejercicio 5
@@ -267,29 +283,74 @@ struct Fraccion {
 
 // Propósito: construye una fraccion
 // Precondición: el denominador no es cero
-// Fraccion consFraccion(int numerador, int denominador)
+Fraccion consFraccion(int numerador, int denominador) {
+    struct Fraccion f;
+    f.numerador = numerador;
+    f.denominador = denominador;
+    return f;
+}
 
 
 // Propósito: devuelve el numerador
-// int numerador(Fraccion f)
+int numerador(Fraccion f) {
+    return f.numerador;
+}
 
 
 // Propósito: devuelve el denominador
-// int denominador(Fraccion f)
+int denominador(Fraccion f) {
+    return f.denominador;
+}
 
 
 // Propósito: devuelve el resultado de hacer la división
-// float division(Fraccion f)
+float division(Fraccion f) {
+    return f.numerador / f.denominador;
+}
 
 
 // Propósito: devuelve una fracción que resulta de multiplicar las fracciones
 // (sin simplificar)
-// Fraccion multF(Fraccion f1, Fraccion f2)
+Fraccion multF(Fraccion f1, Fraccion f2) {
+    struct Fraccion mf;
+    mf.numerador = f1.numerador * f2.numerador;
+    mf.denominador = f1.denominador * f2.denominador;
+    return mf;
+}
 
 
 // Propósito: devuelve una fracción que resulta de simplificar la dada por parámetro
-// Fraccion simplificada(Fraccion p)
+Fraccion simplificada(Fraccion p) {
+    int maxDivisor = mcd(p.numerador, p.denominador);
+    struct Fraccion fs;
+    fs.numerador = p.numerador / maxDivisor;
+    fs.denominador = p.denominador / maxDivisor;
+    /*
+    if (fs.denominador < 0) {
+        fs.numerador = -fs.numerador;
+        fs.denominador = -fs.denominador;
+    }
+    */
+    return fs;
+}
+
+int mcd(int a, int b) { // no entiendo qué garcha es esto, supuestamente es un algoritmo euclideo pero por que garcha se supone que yo voy a saber como pija hacer esto
+    // si son negativos los hago positivos
+    if (a < 0) a = -a;
+    if (b < 0) b = -b;
+    // Base case: when b reaches 0, a is the greatest common divisor
+    if (b == 0) {
+        return a;
+    }
+    // Recursive step: pass 'b' and the remainder of 'a % b'
+    return mcd(b, a % b);
+}
 
 
 // Propósito: devuelve la fracción resultante de sumar las fracciones
-// Fraccion sumF(Fraccion f1, Fraccion f2)
+Fraccion sumF(Fraccion f1, Fraccion f2) {
+    struct Fraccion fsum;
+    fsum.numerador = f1.numerador * f2.denominador + f1.denominador * f2.numerador;
+    fsum.denominador =  f1.denominador * f2.denominador;
+    return fsum;
+}
