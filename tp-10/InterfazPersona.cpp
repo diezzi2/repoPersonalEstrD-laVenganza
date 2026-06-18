@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Persona.h"
+#include "HeaderPersona.h"
 using namespace std;
 
 

@@ -1,6 +1,6 @@
 #include <iostream>
-#include "Entrenador.h"
-#include "Pokemon.h"
+#include "HeaderEntrenador.h"
+#include "HeaderPokemon.h"
 using namespace std;
 
 

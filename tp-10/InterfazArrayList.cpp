@@ -1,4 +1,5 @@
 #include <iostream>
+#include "HeaderArrayList.h"
 using namespace std;
 
 
@@ -18,30 +19,51 @@ struct ArrayListSt {
     // Definir la siguiente interfaz de este tipo de listas:
 
 
-    // Próp.: Crea una lista con 0 elementos.
-    // Nota: empezar el array list con capacidad 16.
-ArrayList newArrayList()
+// Próp.: Crea una lista con 0 elementos.
+// Nota: empezar el array list con capacidad 16.
+ArrayList newArrayList() {
+    ArrayListSt* al = new ArrayListSt;
+    al -> cantidad = 0;
+    al -> elementos = new int[al -> capacidad];
+    al -> capacidad = 16;
+    return al;
+}
 
 
 // Próp.: Crea una lista con 0 elementos y una capacidad dada por parámetro.
-ArrayList newArrayListWith(int capacidad)
+ArrayList newArrayListWith(int capacidad) {
+    ArrayListSt* al = new ArrayListSt;
+    al -> cantidad = 0;
+    al -> elementos = new int[capacidad];
+    al -> capacidad = capacidad;
+    return al;
+}
 
 
 // Próp.: Devuelve la cantidad de elementos existentes.
-int lengthAL(ArrayList xs)
+int lengthAL(ArrayList xs) {
+    return xs -> cantidad;
+}
 
 
 // Próp.: Devuelve el iésimo elemento de la lista.
-int get(int i, ArrayList xs)
+int get(int i, ArrayList xs) {
+    return xs -> elementos[i];
+}
 
 
 // Próp.: Reemplaza el iésimo elemento por otro dado.
-void set(int i, int x, ArrayList xs)
+void set(int i, int x, ArrayList xs) {
+    xs -> elementos[i] = x;
+}
 
 
 // Próp.: Decrementa o aumenta la capacidad del array.
 // Nota: en caso de decrementarla, se pierden los elementos del final de la lista.
-void resize(int capacidad, ArrayList xs)
+void resize(int capacidad, ArrayList xs) {
+    xs -> cantidad = min(xs -> cantidad, capacidad);
+    xs -> capacidad = capacidad;
+}
 
 
 // Próp.: Agrega un elemento al final de la lista.
