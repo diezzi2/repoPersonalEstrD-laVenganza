@@ -2,6 +2,7 @@
 #include "HeaderPersona.h"
 #include "HeaderPokemon.h"
 #include "HeaderEntrenador.h"
+#include "HeaderArrayList.h"
 using namespace std;
 
 
@@ -37,17 +38,32 @@ using namespace std;
 
 // 2.2.1
 // Próp.: Devuelve la suma de todos los elementos.
-int sumatoria(ArrayList xs)
+int sumatoria(ArrayList xs) {
+    int counter = 0;
+    for (int i = 0; i != lengthAL(xs); i++) {
+        counter = counter + get(i, xs);
+    }
+    return counter;
+}
 
 
 // 2.2.2
 // Próp.: Incrementa en uno todos los elementos.
-void sucesores(ArrayList xs)
+void sucesores(ArrayList xs) {
+    for (int i = 0; i != lengthAL(xs); i++) {
+        set(i, get(i,xs) + 1, xs);
+    }
+}
 
 
 // 2.2.3
 // Próp.: Indica si el elemento pertenece a la lista.
-bool pertenece(int x, ArrayList xs)
+bool pertenece(int x, ArrayList xs) {
+    bool respuesta = false;
+    for (int i = 0; i != lengthAL(xs); i++) {
+        
+    }
+}
 
 
 // 2.2.4
