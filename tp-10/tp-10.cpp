@@ -59,23 +59,48 @@ void sucesores(ArrayList xs) {
 // 2.2.3
 // Próp.: Indica si el elemento pertenece a la lista.
 bool pertenece(int x, ArrayList xs) {
-    bool respuesta = false;
-    for (int i = 0; i != lengthAL(xs); i++) {
-        
+    int i = 0;
+    while (i != lengthAL(xs) && get(i,xs) != x) {
+        i++;
     }
+    return get(i,xs) == x;
 }
 
 
 // 2.2.4
 // Próp.: Indica la cantidad de elementos iguales a x.
-int apariciones(int x, ArrayList xs)
+int apariciones(int x, ArrayList xs) {
+    int counter = 0;
+    for (int i = 0; i != lengthAL(xs); i++) {
+        counter = counter + unoSiCeroSiNo(get(i,xs) == x);
+    }
+    return counter;
+}
+
+int unoSiCeroSiNo(bool b) {
+    return (b) ? 1 : 0;
+}
 
 
 // 2.2.5
 // Próp.: Crea una nueva lista a partir de la primera y la segunda (en ese orden).
-ArrayList append(ArrayList xs, ArrayList ys)
+ArrayList append(ArrayList xs, ArrayList ys) {
+    resize(lengthAL(xs) + lengthAL(ys), xs);
+    for (int i = 0; i != lengthAL(ys); i++) {
+        add(get(i,ys), xs);
+    }
+    return xs;
+}
 
 
 // 2.2.6
 // Próp.: Devuelve el elemento más chico de la lista.
-int minimo(ArrayList xs)
+int minimo(ArrayList xs) {
+    int minElem = get(0, xs);
+    for (int i = 1; i != lengthAL(xs); i++) {
+        if (get(i, xs) < minElem) {
+            minElem = get(i, xs);
+        }
+    }
+    return minElem;
+}
