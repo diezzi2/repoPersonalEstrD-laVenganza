@@ -90,7 +90,7 @@ void Snoc(int x, LinkedList xs) {
     while (nodoActual != NULL) {
         nodoActual = nodoActual -> siguiente;
     }
-    nodoActual = nuevoNodo;
+    nodoActual -> siguiente = nuevoNodo;
 }
 
 
@@ -150,4 +150,20 @@ void DestroyL(LinkedList xs) {
         delete nodoABorrar;
     }
     delete xs;
+}
+
+
+    // Ejercicio 1.3
+
+    // Agregar la operación de Append a la interfaz de LinkedList, e implementarla como implementador en O(1).
+
+
+// Prop.: Agrega todos los elementos de la segunda lista al final de los de la primera. La segunda lista se destruye.
+void Append(LinkedList xs, LinkedList ys) {
+    NodoL* nodoActual = xs -> primero;
+    while (nodoActual != NULL) {
+        nodoActual = nodoActual -> siguiente;
+    }
+    nodoActual -> siguiente = ys -> primero;
+    delete ys;
 }

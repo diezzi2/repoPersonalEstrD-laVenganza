@@ -47,29 +47,76 @@ void Sucesores(LinkedList xs) {
 
 // 1.2.3
 // Prop.: Indica si el elemento pertenece a la lista.
-bool pertenece(int x, LinkedList xs)
+bool pertenece(int x, LinkedList xs) {
+    ListIterator ixs = getIterator(xs);
+    while (!atEnd(ixs) && current(ixs) != x) {
+        Next(ixs);
+    }
+    DisposeIterator(ixs);
+    return current(ixs) == x;
+}
 
 
 // 1.2.4
 // Prop.: Indica la cantidad de elementos iguales a x.
-int apariciones(int x, LinkedList xs)
+int apariciones(int x, LinkedList xs) {
+    ListIterator ixs = getIterator(xs);
+    int contador = 0;
+    while (!atEnd(ixs)) {
+        contador += unoSiCeroSiNo(current(ixs) == x);
+        Next(ixs);
+    }
+    DisposeIterator(ixs);
+    return contador;
+}
+
+int unoSiCeroSiNo(bool b) {
+    return (b) ? 1 : 0;
+}
 
 
 // 1.2.5
 // Prop.: Devuelve el elemento más chico de la lista.
-int minimo(LinkedList xs)
+int minimo(LinkedList xs) {
+    ListIterator ixs = getIterator(xs);
+    int elementoMinimo = current(ixs);
+    while (!atEnd(ixs)) {
+        Next(ixs);
+        elementoMinimo = min(elementoMinimo, current(ixs));
+    }
+    DisposeIterator(ixs);
+    return elementoMinimo;
+}
 
 
 // 1.2.6
 // Prop.: Dada una lista genera otra con los mismos elementos, en el mismo orden.
 // Nota: notar que el costo mejoraría si Snoc fuese O(1), cómo podría serlo?
-LinkedList copy(LinkedList xs)
+// Resp: supongo q teniendo un last en el tad pero yo no lo armé.
+LinkedList copy(LinkedList xs) {
+    ListIterator ixs = getIterator(xs);
+    LinkedList ys = nil();
+    while (!atEnd(ixs)) {
+        Snoc(current(ixs), ys);
+        Next(ixs);
+    }
+    DisposeIterator(ixs);
+    return ys;
+}
 
 
 // 1.2.7
 // Prop.: Agrega todos los elementos de la segunda lista al final de los de la primera. La segunda lista se destruye.
 // Nota: notar que el costo mejoraría si Snoc fuese O(1), cómo podría serlo?
-void Append(LinkedList xs, LinkedList ys)
+void Append(LinkedList xs, LinkedList ys) {
+    ListIterator iys = getIterator(ys);
+    while (!atEnd(iys)) {
+        Snoc(current(iys), xs);
+        Next(iys);
+    }
+    DisposeIterator(iys);
+    DestroyL(ys);
+}
 
 
     // Ejercicio 1.3

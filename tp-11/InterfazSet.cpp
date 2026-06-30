@@ -26,15 +26,23 @@ struct SetSt {
 
 
 // Prop.: Crea un conjunto vacío.
-Set emptyS()
+Set emptyS() {
+    SetSt* s = new SetSt;
+    s -> cantidad = 0;
+    s -> primero = NULL;
+}
 
 
 // Prop.: Indica si el conjunto está vacío.
-bool isEmptyS(Set s)
+bool isEmptyS(Set s) {
+    return s -> cantidad == 0;
+}
 
 
 // Prop.: Indica si el elemento pertenece al conjunto.
-bool belongsS(int x, Set s)
+bool belongsS(int x, Set s) {
+    while (s -> )
+}
 
 
 // Prop.: Agrega un elemento al conjunto.
