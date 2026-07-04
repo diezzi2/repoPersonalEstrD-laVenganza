@@ -41,25 +41,71 @@ bool isEmptyS(Set s) {
 
 // Prop.: Indica si el elemento pertenece al conjunto.
 bool belongsS(int x, Set s) {
-    while (s -> )
+    NodoS* nodoActual = s -> primero;
+    while (nodoActual != NULL && nodoActual -> elem != x) {
+        nodoActual = nodoActual -> siguiente;
+    }
+    return nodoActual -> elem == x;
 }
 
 
 // Prop.: Agrega un elemento al conjunto.
-void AddS(int x, Set s)
+void AddS(int x, Set s) {
+    if (!belongsImplementador(x, s)) {
+        NodoS* nuevoNodo = new NodoS;
+        nuevoNodo -> elem = x;
+        nuevoNodo -> siguiente = s -> primero;
+        s -> primero = nuevoNodo;
+        s -> cantidad++;
+    }
+}
+
+bool belongsImplementador(int x, Set s) {
+    NodoS* nodoActual = s -> primero;
+    while (nodoActual != NULL && nodoActual -> elem != x) {
+        nodoActual = nodoActual -> siguiente;
+    }
+    return nodoActual -> elem == x;
+}
 
 
 // Prop.: Quita un elemento dado.
-void RemoveS(int x, Set s)
+void RemoveS(int x, Set s) {
+    NodoS* nodoActual = s -> primero;
+    while (nodoActual != NULL && nodoActual -> elem != x) {
+        nodoActual = nodoActual -> siguiente;
+    }
+    if (nodoActual -> elem == x) {
+        delete nodoActual;
+    }
+}
 
 
 // Prop.: Devuelve la cantidad de elementos.
-int sizeS(Set s)
+int sizeS(Set s) {
+    return s -> cantidad;
+}
 
 
-// Prop.: Devuelve una lista con los lementos del conjunto.
-LinkedList setToList(Set s)
+// Prop.: Devuelve una lista con los elementos del conjunto.
+LinkedList setToList(Set s) {
+    LinkedList nuevaLista = nil();
+    NodoS* nodoActual = s -> primero;
+    while (nodoActual != NULL) {
+        Snoc(nodoActual -> elem, nuevaLista);
+        nodoActual = nodoActual -> siguiente;
+    }
+    return nuevaLista;
+}
 
 
 // Prop.: Libera la memoria ocupada por el conjunto.
-void DestroyS(Set s)
+void DestroyS(Set s) {
+    NodoS* nodoABorrar = s -> primero;
+    // no entiendo por qué no debo cambiar nunca esta variable, como sabe que tiene que apuntar al siguiente nodo si no le digo?
+    while (s -> primero != NULL) {
+        s -> primero = s -> primero -> siguiente;
+        delete nodoABorrar;
+    }
+    delete s;
+}
